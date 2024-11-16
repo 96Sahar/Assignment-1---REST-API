@@ -15,9 +15,9 @@ db.once("open", () => {
 });
 const Posts = require("./models/posts_model");
 Posts.create({
-  username: "Sahar Yosef",
-  description: "First try",
-  phone_number: "052-5381648",
+  username: "John Doe",
+  description: "This is a post",
+  phone_number: "1234567890",
 });
 app.get("/", (req, res) => {
   res.send("Hello world");
