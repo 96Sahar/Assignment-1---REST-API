@@ -3,13 +3,22 @@ const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT;
-mongoose.connect(process.env.DB_CONNECT);
+
+mongoose.connect(
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.wx3ah.mongodb.net/`
+);
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Connected to the database");
 });
-
+const Posts = require("./models/posts_model");
+Posts.create({
+  username: "Sahar Yosef",
+  description: "First try",
+  phone_number: "052-5381648",
+});
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
