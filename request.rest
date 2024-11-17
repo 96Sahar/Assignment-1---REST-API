@@ -16,7 +16,7 @@ GET http://localhost:3000/post
 
 ### Get post by id
 
-GET http://localhost:3000/post/6739b01849df545461b8b205
+GET http://localhost:3000/post/6738ea676add071cbac046f4
  
 
 ### Get post by username
@@ -26,11 +26,21 @@ GET http://localhost:3000/post?username=ori
 
 ### Update post by id
 
-PUT http://localhost:3000/post/6739b01849df545461b8b205
+PUT http://localhost:3000/post/6738ea676add071cbac046f4
 Content-Type: application/json
 
 {
     "username": "shahar",
     "description": "blabla",
     "phone_number": "1234567890"
+}
+
+
+###
+POST http://localhost:3000/post/6738ea676add071cbac046f4/comments
+Content-Type: application/json
+
+{
+    "username": "ori's comment",
+    "description": "WORKINGGGG"
 }
