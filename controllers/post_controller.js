@@ -5,8 +5,8 @@ const getAllPosts = async (req, res) => {
   const filter = req.query;
   console.log(filter);
   try {
-    if (filter.owner) {
-      const posts = await Posts.find({ owner: filter.owner });
+    if (filter.username) {
+      const posts = await Posts.find({ username: filter.username });
       return res.send(posts);
     } else {
       const posts = await Posts.find();

@@ -4,7 +4,7 @@ POST http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "username": "Check Get Post By ID",
+    "username": "Saharrrrr",
     "description": "Content 1",
     "phone_number": "1234567890"
 }
@@ -16,6 +16,10 @@ GET http://localhost:3000/post
 
 ###
 
-GET http://localhost:3000/post/6739a988476389c2b663889a 
+GET http://localhost:3000/post/6739a988476389c2b663889a
  
+
+###
+
+GET http://localhost:3000/post?username=user1
 
