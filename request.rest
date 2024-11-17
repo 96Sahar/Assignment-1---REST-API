@@ -35,6 +35,15 @@ Content-Type: application/json
     "phone_number": "1234567890"
 }
 
+### Delete post by id
+
+DELETE http://localhost:3000/post/6738e766fcef3656448ff21f
+
+
+
+### ALL COMMENTS REQUESTS
+
+
 
 ### Create a comment
 POST http://localhost:3000/post/6739cc076163010dc09bc37e/comments
@@ -63,3 +72,8 @@ Content-Type: application/json
     "username": "ori",
     "description": "test test"
 }
+
+### Delete a comment in a post by ID
+
+DELETE http://localhost:3000/post/6739cc076163010dc09bc37e/comments/6739cc1a6163010dc09bc381
+
