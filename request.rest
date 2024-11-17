@@ -53,3 +53,13 @@ GET http://localhost:3000/post/6739cc076163010dc09bc37e/comments
 ### get a comment in a post by ID
 
 GET http://localhost:3000/post/6739cc076163010dc09bc37e/comments/6739cc1a6163010dc09bc381
+
+### Update a comment in a post by ID
+
+PUT http://localhost:3000/post/6739c394ba664a9e6b0fec2f/comments/6739c68b101e01a2387149d4
+Content-Type: application/json
+
+{
+    "username": "ori",
+    "description": "test test"
+}
