@@ -81,10 +81,57 @@ const addComment = async (req, res) => {
   }
 };
 
+const getAllCommentsInAPost = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await Posts.findById(postId, "comments");
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+    return res.status(200).json(post.comments);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+const getCommentById = async (req, res) => {
+  const { postId, commentId } = req.params;
+
+  try {
+    const post = await Posts.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    const comment = post.comments.id(commentId);
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    return res.status(200).json(comment);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+// const id = req.params.id;
+// if (id) {
+//   try {
+//     const post = await Posts.findById(id);
+//     return res.status(200).send(post);
+//   } catch (error) {
+//     return res.status(400).send(error.message);
+//   }
+// } else {
+//   console.log("Get Post By Id Error");
+// }
 module.exports = {
   getAllPosts,
   createPost,
   getPostById,
   updatePost,
   addComment,
+  getAllCommentsInAPost,
+  getCommentById,
 };
