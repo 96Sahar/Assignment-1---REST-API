@@ -1,5 +1,5 @@
 const Posts = require("../models/post_model");
-const { ObjectId } = require("mongoose");
+const mongoose = require("mongoose");
 
 const getAllPosts = async (req, res) => {
   const filter = req.query;
@@ -58,6 +58,18 @@ const updatePost = async (req, res) => {
   } else {
     console.log("Update Post Error");
   }
+};
+
+const deletePost = async (req, res) => {
+    const id = req.params.id;
+    if (id) {
+        try {
+            const post = await Posts.findByIdAndDelete(id);
+            return res.status(200).json({ message: "Post deleted successfully" });
+        } catch (error) {
+            return res.status(400).send(error.message);
+        }
+    }
 };
 
 const addComment = async (req, res) => {
@@ -140,14 +152,49 @@ const updateComment = async (req, res) => {
     }
 };
 
+const deleteComment = async (req, res) => {
+    const { postId, commentId } = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(postId) || !mongoose.Types.ObjectId.isValid(commentId)) {
+        return res.status(400).json({ error: "Invalid postId or commentId" });
+    }
+    
+    try {
+        const post = await Posts.findById(postId);
+        if (!post) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        const comment = post.comments.id(commentId);
+        if (!comment) {
+            return res.status(404).json({ error: "Comment not found" });
+        }
+
+        const result = await Posts.updateOne(
+            { _id: postId },
+            { $pull: { comments: { _id: commentId } } }
+        );
+
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ error: "Comment not found" });
+        }
+
+        return res.status(200).json({ message: "Comment deleted successfully" });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+};
+
 
 module.exports = {
   getAllPosts,
   createPost,
   getPostById,
   updatePost,
+  deletePost,
   addComment,
   getAllCommentsInAPost,
   getCommentById,
   updateComment,
+  deleteComment,
 };
