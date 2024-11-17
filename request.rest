@@ -1,3 +1,20 @@
-###
+### Add new post
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "username": "Post 1",
+    "description": "Content 1",
+    "phone_number": "1234567890"
+}
+
+### Get all posts
 
 GET http://localhost:3000/post
+
+
+###
+
+ 
+
