@@ -4,7 +4,7 @@ POST http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "username": "Saharrrrr",
+    "username": "ori",
     "description": "Content 1",
     "phone_number": "1234567890"
 }
@@ -14,12 +14,23 @@ Content-Type: application/json
 GET http://localhost:3000/post
 
 
-###
+### Get post by id
 
-GET http://localhost:3000/post/6739a988476389c2b663889a
+GET http://localhost:3000/post/6739b01849df545461b8b205
  
 
-###
+### Get post by username
 
-GET http://localhost:3000/post?username=user1
+GET http://localhost:3000/post?username=ori
+  
 
+### Update post by id
+
+PUT http://localhost:3000/post/6739b01849df545461b8b205
+Content-Type: application/json
+
+{
+    "username": "shahar",
+    "description": "blabla",
+    "phone_number": "1234567890"
+}
