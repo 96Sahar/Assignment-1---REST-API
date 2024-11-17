@@ -4,9 +4,9 @@ POST http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "username": "ori",
-    "description": "Content 1",
-    "phone_number": "1234567890"
+    "username": "A test for comments",
+    "description": "TESTI",
+    "phone_number": "TASTY"
 }
 
 ### Get all posts
@@ -36,11 +36,20 @@ Content-Type: application/json
 }
 
 
-###
-POST http://localhost:3000/post/6738ea676add071cbac046f4/comments
+### Create a comment
+POST http://localhost:3000/post/6739cc076163010dc09bc37e/comments
 Content-Type: application/json
 
 {
-    "username": "ori's comment",
-    "description": "WORKINGGGG"
+    "username": "Fifth",
+    "description": "Comment"
 }
+
+### Get all comments in a post
+
+GET http://localhost:3000/post/6739cc076163010dc09bc37e/comments
+
+
+### get a comment in a post by ID
+
+GET http://localhost:3000/post/6739cc076163010dc09bc37e/comments/6739cc1a6163010dc09bc381

@@ -12,4 +12,7 @@ router.get("/:id", postController.getPostById);
 router.put("/:id", postController.updatePost);
 
 router.post("/:postId/comments", postController.addComment);
+router.get("/:postId/comments", postController.getAllCommentsInAPost);
+
+router.get("/:postId/comments/:commentId", postController.getCommentById);
 module.exports = router;
