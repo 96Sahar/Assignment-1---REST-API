@@ -10,9 +10,12 @@ db.once("open", () => {
   console.log("Connected to the database");
 });
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const post_routes = require("./routes/post_routes");
 app.use("/post", post_routes);
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
