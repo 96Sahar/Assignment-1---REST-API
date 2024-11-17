@@ -49,17 +49,36 @@ const updatePost = async (req, res) => {
   const id = req.params.id;
   if (id) {
     try {
-        const post = req.body;
-        const update = await Posts.findByIdAndUpdate(id, post, { new: true });
-        return res.status(200).send(update);  
+      const post = req.body;
+      const update = await Posts.findByIdAndUpdate(id, post, { new: true });
+      return res.status(200).send(update);
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
-    catch (error) {
-          return res.status(400).send(error.message);
-        }   
-    }
-    else {
+  } else {
     console.log("Update Post Error");
-}   
+  }
+};
+
+const addComment = async (req, res) => {
+  const { postId } = req.params;
+  const { username, description } = req.body;
+  console.log(username);
+  console.log(description);
+  if (!username || !description) {
+    return res.status(400).json({ error: "Post not found" });
+  }
+  try {
+    const post = await Posts.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+    post.comments.push({ username, description });
+    await post.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports = {
@@ -67,4 +86,5 @@ module.exports = {
   createPost,
   getPostById,
   updatePost,
+  addComment,
 };
