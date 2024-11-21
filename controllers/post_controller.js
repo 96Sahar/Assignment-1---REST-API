@@ -3,10 +3,9 @@ const mongoose = require("mongoose");
 
 const getAllPosts = async (req, res) => {
   const filter = req.query;
-  console.log(filter);
   try {
-    if (filter.username) {
-      const posts = await Posts.find({ username: filter.username });
+    if (filter.sender) {
+      const posts = await Posts.find({ sender: filter.sender });
       return res.send(posts);
     } else {
       const posts = await Posts.find();
@@ -18,7 +17,6 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  console.log(req.body);
   try {
     const post = await Posts.create(req.body);
     if (post) {
@@ -74,10 +72,8 @@ const deletePost = async (req, res) => {
 
 const addComment = async (req, res) => {
   const { postId } = req.params;
-  const { username, description } = req.body;
-  console.log(username);
-  console.log(description);
-  if (!username || !description) {
+  const { sender, description } = req.body;
+  if (!sender || !description) {
     return res.status(400).json({ error: "Post not found" });
   }
   try {
@@ -85,7 +81,7 @@ const addComment = async (req, res) => {
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
-    post.comments.push({ username, description });
+    post.comments.push({ sender, description });
     await post.save();
     return res.status(201).json(post);
   } catch (err) {
@@ -95,7 +91,6 @@ const addComment = async (req, res) => {
 
 const getAllCommentsInAPost = async (req, res) => {
   const { postId } = req.params;
-
   try {
     const post = await Posts.findById(postId, "comments");
     if (!post) {
@@ -109,7 +104,6 @@ const getAllCommentsInAPost = async (req, res) => {
 
 const getCommentById = async (req, res) => {
   const { postId, commentId } = req.params;
-
   try {
     const post = await Posts.findById(postId);
     if (!post) {
@@ -130,7 +124,6 @@ const getCommentById = async (req, res) => {
 const updateComment = async (req, res) => {
     const { postId, commentId } = req.params;
     const { username, description } = req.body;
-    
     try {
         const post = await Posts.findById(postId);
         if (!post) {
@@ -154,7 +147,6 @@ const updateComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
     const { postId, commentId } = req.params;
-    
     if (!mongoose.Types.ObjectId.isValid(postId) || !mongoose.Types.ObjectId.isValid(commentId)) {
         return res.status(400).json({ error: "Invalid postId or commentId" });
     }
