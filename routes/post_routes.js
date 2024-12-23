@@ -3,24 +3,14 @@ const router = express.Router();
 
 const postController = require("../controllers/post_controller");
 
-router.post("/", postController.createPost);
+router.post("/", postController.createItem);
 
-router.get("/", postController.getAllPosts);
+router.get("/", postController.getAll);
 
-router.get("/:id", postController.getPostById);
+router.get("/:id", postController.getById);
 
-router.put("/:id", postController.updatePost);
+router.put("/:id", postController.updateItem);
 
-router.delete("/:id", postController.deletePost);
-
-router.post("/:postId/comments", postController.addComment);
-
-router.get("/:postId/comments", postController.getAllCommentsInAPost);
-
-router.get("/:postId/comments/:commentId", postController.getCommentById);
-
-router.put("/:postId/comments/:commentId", postController.updateComment);
-
-router.delete("/:postId/comments/:commentId", postController.deleteComment);
+router.delete("/:id", postController.deleteItem);
 
 module.exports = router;

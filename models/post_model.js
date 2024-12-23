@@ -1,22 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const commentSchema = new Schema({
-  sender: { type: String, required: true },
-  description: { type: String, required: true },
-});
-
 const postsSchema = new Schema({
   sender: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
-  phone_number: String,
-  comments: [commentSchema],
+  phoneNumber: 
+  {
+    type: String,
+    required:true
+  }
 });
 
 const Post = mongoose.model("Post", postsSchema);
